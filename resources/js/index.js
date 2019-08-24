@@ -6,7 +6,8 @@ function createEntry() {
     let newRow = todayList.insertRow(-1);
 
     /*Styling new row*/
-    newRow.style="margin: 1em; display: flex; justify-content: space-between"
+    newRow.style="margin: 1em; display: flex; justify-content: space-between; width: 100%; max-width: 800px";
+    newRow.class="entry";
 
     /*Inserting four cells in that row*/
     let checkbox = newRow.insertCell(0);
