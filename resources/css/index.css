@@ -1,0 +1,45 @@
+/* Styles for the html tag */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*Formatting for main body*/
+body {
+  background-color: white;
+}
+
+div.checklist{
+  width: 80%;
+  max-width: 800px;
+  margin: 5% 10%;
+}
+.checklist .listHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+h1.listTitle {
+  display: inline-block;
+  margin-left: 0;
+}
+div.add.button {
+  display: inline-block;
+  background-color: green;
+  color: white;
+  padding: 0.5em;
+  width: 5em;
+  height: 2em;
+  text-align: center;
+}
+
+tr.entry{
+  display: flex;
+  margin: 1em;
+}
+
+.entry td{
+  margin: 1em;
+}
