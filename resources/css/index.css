@@ -33,11 +33,13 @@ div.add.button {
   width: 5em;
   height: 2em;
   text-align: center;
+  cursor: pointer;
 }
 
 tr.entry{
   display: flex;
   margin: 1em;
+  justify-content: space-evenly;
 }
 
 .entry td{
