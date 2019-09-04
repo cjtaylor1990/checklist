@@ -36,14 +36,3 @@ div.add.button {
   cursor: pointer;
 }
 
-tr.entry{
-  display: flex;
-  margin: 1em;
-  justify-content: space-evenly;
-  width: 100%;
-  max-width: 800px;
-}
-
-.entry td{
-  margin: 1em;
-}
