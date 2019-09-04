@@ -1,26 +1,50 @@
 let addButton = document.getElementById('todayAdd');
 let todayList = document.getElementById('todayList');
+let backlogList = document.getElementById('backlogList');
 
-const Row = {
-    style: "margin: 1em; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 2em;",
+const Checkbox = {
+    style: "",
+    content: '<input type="checkbox">',
+}
+
+const Entry = {
+    style: "",
+    content: ""
 }
 
 const RemoveButton = {
     style: "background-color: red;",
     content: "Remove",
+    removeClick: function(event) {
+        document.getElementById(event.target.parentElement.id).remove();
+    }
 }
 
 const BacklogButton = {
     style: "background-color: yellow;",
     content: "Backlog",
+    backlogClick: function(event) {
+        let cloneRow = document.getElementById(event.target.parentElement.id).cloneNode(true)
+        cloneRow.childNodes[3].style = "display: none;"
+        cloneRow.childNodes[2].onclick = Row.remove.removeClick;
+        backlogList.appendChild(cloneRow);
+        document.getElementById(event.target.parentElement.id).remove();
+
+    }
 }
 
-function removeClick(event) {
-    document.getElementById(event.target.parentElement.id).remove();
+const Row = {
+    style: "margin: 1em; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 2em;",
+    class: "entry",
+    checkbox: Checkbox,
+    entry: Entry,
+    remove: RemoveButton,
+    backlog: BacklogButton,
+    rowID: function(){
+        return String(Math.floor(Math.random()*10000));
+    }
+
 }
-
-let currentRowNum = 0;
-
 
 function createEntry() {
     /*Creating new row at last position of table*/
@@ -28,31 +52,30 @@ function createEntry() {
 
     /*Styling new row*/
     newRow.style = Row.style;
-    newRow.class = "entry";
+    newRow.class = Row.class;
 
     /*Adding random ID that can be called later*/
-    newRow.id = String(Math.floor(Math.random()*100000));
+    newRow.id = Row.rowID;
 
     /*Inserting four cells in that row*/
     let checkbox = newRow.insertCell(0);
-    let content = newRow.insertCell(1);
+    let entry = newRow.insertCell(1);
     let remove = newRow.insertCell(2);
     let backlog = newRow.insertCell(3);
 
     /*Adding text to cells in new row (placeholder for when I take in content)*/
-    checkbox.innerHTML = '<input type="checkbox">';
-    content.innerHTML = String(currentRowNum);
-    remove.innerHTML = RemoveButton.content;
-    backlog.innerHTML = BacklogButton.content;
+    checkbox.innerHTML = Row.checkbox.content;
+    entry.innerHTML = Row.entry.content;
+    remove.innerHTML = Row.remove.content;
+    backlog.innerHTML = Row.backlog.content;
 
     /*Adding styling to content, as well as remove and backlog buttons*/
-    remove.style = RemoveButton.style;
-    backlog.style = BacklogButton.style;
+    remove.style = Row.remove.style;
+    backlog.style = Row.backlog.style;
 
-    /*Adding functionality to remove button*/
-    remove.onclick = removeClick;
-
-    currentRowNum += 1;
+    /*Adding functionality to remove and backlog button*/
+    remove.onclick = Row.remove.removeClick;
+    backlog.onclick = Row.backlog.backlogClick;
 
 }
 
