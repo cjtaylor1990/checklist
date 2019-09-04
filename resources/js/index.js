@@ -9,7 +9,6 @@ const Checkbox = {
 
 const Entry = {
     style: "",
-    content: ""
 }
 
 const RemoveButton = {
@@ -47,6 +46,9 @@ const Row = {
 }
 
 function createEntry() {
+    /*Prompting user for the entry content*/
+    let entryContent = prompt("What task do you want to get done?");
+
     /*Creating new row at last position of table*/
     let newRow = todayList.insertRow(-1);
 
@@ -65,7 +67,7 @@ function createEntry() {
 
     /*Adding text to cells in new row (placeholder for when I take in content)*/
     checkbox.innerHTML = Row.checkbox.content;
-    entry.innerHTML = Row.entry.content;
+    entry.innerHTML = entryContent;
     remove.innerHTML = Row.remove.content;
     backlog.innerHTML = Row.backlog.content;
 
