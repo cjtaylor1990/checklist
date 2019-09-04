@@ -15,7 +15,7 @@ const RemoveButton = {
     style: "background-color: red;",
     content: "Remove",
     removeClick: function(event) {
-        document.getElementById(event.target.parentElement.id).remove();
+        document.getElementById(event.target.parentNode.id).remove();
     }
 }
 
@@ -27,7 +27,7 @@ const BacklogButton = {
         cloneRow.childNodes[3].style = "display: none;"
         cloneRow.childNodes[2].onclick = Row.remove.removeClick;
         backlogList.appendChild(cloneRow);
-        document.getElementById(event.target.parentElement.id).remove();
+        document.getElementById(event.target.parentNode.id).remove();
 
     }
 }
@@ -57,7 +57,7 @@ function createEntry() {
     newRow.class = Row.class;
 
     /*Adding random ID that can be called later*/
-    newRow.id = Row.rowID;
+    newRow.id = Row.rowID();
 
     /*Inserting four cells in that row*/
     let checkbox = newRow.insertCell(0);
