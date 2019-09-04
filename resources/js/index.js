@@ -49,8 +49,8 @@ function createEntry() {
     remove.style = RemoveButton.style;
     backlog.style = BacklogButton.style;
 
-    /*Adding ID to remove button that is equal to row number*/
-    newRow.id = String(Math.floor(Math.random()*100000));
+    /*Adding functionality to remove button*/
+    remove.onclick = removeClick;
 
     currentRowNum += 1;
 
