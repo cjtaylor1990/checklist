@@ -1,7 +1,9 @@
 let addButton = document.getElementById('todayAdd');
 let todayList = document.getElementById('todayList');
 
-const rowStyle = "margin: 1em; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 2em;";
+const Row = {
+    style: "margin: 1em; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 2em;",
+}
 
 const RemoveButton = {
     style: "background-color: red;",
@@ -13,16 +15,23 @@ const BacklogButton = {
     content: "Backlog",
 }
 
-let currentRows = {}
+function removeClick(event) {
+    document.getElementById(event.target.parentElement.id).remove();
+}
+
 let currentRowNum = 0;
+
 
 function createEntry() {
     /*Creating new row at last position of table*/
     let newRow = todayList.insertRow(-1);
 
     /*Styling new row*/
-    newRow.style = rowStyle;
+    newRow.style = Row.style;
     newRow.class = "entry";
+
+    /*Adding random ID that can be called later*/
+    newRow.id = String(Math.floor(Math.random()*100000));
 
     /*Inserting four cells in that row*/
     let checkbox = newRow.insertCell(0);
@@ -32,7 +41,7 @@ function createEntry() {
 
     /*Adding text to cells in new row (placeholder for when I take in content)*/
     checkbox.innerHTML = '<input type="checkbox">';
-    content.innerHTML = "Entry Example";
+    content.innerHTML = String(currentRowNum);
     remove.innerHTML = RemoveButton.content;
     backlog.innerHTML = BacklogButton.content;
 
@@ -40,10 +49,11 @@ function createEntry() {
     remove.style = RemoveButton.style;
     backlog.style = BacklogButton.style;
 
-    /*Adding functionality to buttons*/
-    remove.onclick = function removeClick(){
-        todayList.deleteRow(-1);
-    }
+    /*Adding ID to remove button that is equal to row number*/
+    newRow.id = String(Math.floor(Math.random()*100000));
+
+    currentRowNum += 1;
+
 }
 
 addButton.onclick = createEntry;
