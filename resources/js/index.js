@@ -3,8 +3,6 @@ let todayList = document.getElementById('todayList');
 
 const rowStyle = "margin: 1em; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 2em;";
 
-let numRows = 0;
-
 const RemoveButton = {
     style: "background-color: red;",
     content: "Remove",
@@ -14,6 +12,9 @@ const BacklogButton = {
     style: "background-color: yellow;",
     content: "Backlog",
 }
+
+let currentRows = {}
+let currentRowNum = 0;
 
 function createEntry() {
     /*Creating new row at last position of table*/
@@ -31,7 +32,7 @@ function createEntry() {
 
     /*Adding text to cells in new row (placeholder for when I take in content)*/
     checkbox.innerHTML = '<input type="checkbox">';
-    content.innerHTML = toString(numRows);
+    content.innerHTML = "Entry Example";
     remove.innerHTML = RemoveButton.content;
     backlog.innerHTML = BacklogButton.content;
 
@@ -39,15 +40,10 @@ function createEntry() {
     remove.style = RemoveButton.style;
     backlog.style = BacklogButton.style;
 
-    /*Adding ID to remove button to be used later*/
-    remove.id = numRows;
-
     /*Adding functionality to buttons*/
-    remove.onclick = document.todayList.deleteRow(newRow.id);
-    backlog.onclick = BacklogButton.moveRow;
-
-    /*Incrementing the number of rows by 1*/
-    numRows += 1;
+    remove.onclick = function removeClick(){
+        todayList.deleteRow(-1);
+    }
 }
 
 addButton.onclick = createEntry;
