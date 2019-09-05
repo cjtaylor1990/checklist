@@ -2,43 +2,47 @@ let addButton = document.getElementById('todayAdd');
 let todayList = document.getElementById('todayList');
 let backlogList = document.getElementById('backlogList');
 
-const Checkbox = {
-    style: "",
-    content: '<input type="checkbox">',
-}
-
-const Entry = {
-    style: "",
-}
-
-const RemoveButton = {
-    style: "background-color: red;",
-    content: "Remove",
-    removeClick: function(event) {
-        document.getElementById(event.target.parentNode.id).remove();
-    }
-}
-
-const BacklogButton = {
-    style: "background-color: yellow;",
-    content: "Backlog",
-    backlogClick: function(event) {
-        let cloneRow = document.getElementById(event.target.parentElement.id).cloneNode(true)
-        cloneRow.childNodes[3].style = "display: none;"
-        cloneRow.childNodes[2].onclick = Row.remove.removeClick;
-        backlogList.appendChild(cloneRow);
-        document.getElementById(event.target.parentNode.id).remove();
-
-    }
-}
-
 const Row = {
+    //Style of row
     style: "margin: 1em; display: flex; justify-content: space-between; align-items: center; width: 100%; height: 2em;",
-    class: "entry",
-    checkbox: Checkbox,
-    entry: Entry,
-    remove: RemoveButton,
-    backlog: BacklogButton,
+    class: "row",
+    
+    //Different row components, their styles, innerHTML contents, and corresponding functions.
+    components: {
+        
+        //Entry (where you actually have the task description)
+        entry: {
+            style: "font-size: 1.2em; cursor: pointer; margin: 0.5em 1em 0.5em 1em;",
+            crossOutClick: function(event) {
+                event.target.style = Row.components.entry.style + "text-decoration: line-through;"
+            }
+        },
+
+        //Remove button (deletes the row)
+        remove: {
+            style: "font-size: 1.2em; cursor: pointer; margin: 0.5em 1em 0.5em 1em;",
+            content: "Remove",
+            removeClick: function(event) {
+                document.getElementById(event.target.parentNode.id).remove();
+            }
+        },
+        
+        //Backlog button (moves the row to the backlog to-do list and reformats so that it no longer has backlog button)
+        backlog: {
+            style: "font-size: 1.2em; cursor: pointer; margin: 0.5em 1em 0.5em 1em;",
+            content: "Backlog",
+            backlogClick: function(event) {
+                let cloneRow = document.getElementById(event.target.parentElement.id).cloneNode(true)
+                cloneRow.childNodes[2].style = "display: none;"
+                cloneRow.childNodes[1].onclick = Row.components.remove.removeClick;
+                backlogList.appendChild(cloneRow);
+                document.getElementById(event.target.parentNode.id).remove();
+
+            }
+        },
+    },
+
+    //Function to randomly generate row ID number
     rowID: function(){
         return String(Math.floor(Math.random()*10000));
     }
@@ -60,24 +64,24 @@ function createEntry() {
     newRow.id = Row.rowID();
 
     /*Inserting four cells in that row*/
-    let checkbox = newRow.insertCell(0);
-    let entry = newRow.insertCell(1);
-    let remove = newRow.insertCell(2);
-    let backlog = newRow.insertCell(3);
+    let entry = newRow.insertCell(0);
+    let remove = newRow.insertCell(1);
+    let backlog = newRow.insertCell(2);
 
     /*Adding text to cells in new row (placeholder for when I take in content)*/
-    checkbox.innerHTML = Row.checkbox.content;
     entry.innerHTML = entryContent;
-    remove.innerHTML = Row.remove.content;
-    backlog.innerHTML = Row.backlog.content;
+    remove.innerHTML = Row.components.remove.content;
+    backlog.innerHTML = Row.components.backlog.content;
 
     /*Adding styling to content, as well as remove and backlog buttons*/
-    remove.style = Row.remove.style;
-    backlog.style = Row.backlog.style;
+    entry.style = Row.components.entry.style;
+    remove.style = Row.components.remove.style;
+    backlog.style = Row.components.backlog.style;
 
     /*Adding functionality to remove and backlog button*/
-    remove.onclick = Row.remove.removeClick;
-    backlog.onclick = Row.backlog.backlogClick;
+    entry.onclick = Row.components.entry.crossOutClick;
+    remove.onclick = Row.components.remove.removeClick;
+    backlog.onclick = Row.components.backlog.backlogClick;
 
 }
 

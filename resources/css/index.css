@@ -1,3 +1,6 @@
+/*Importing font from Google*/
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes&display=swap');
+
 /* Styles for the html tag */
 * {
   box-sizing: border-box;
@@ -7,14 +10,24 @@
 
 /*Formatting for main body*/
 body {
+  background-image: url("../images/wood.jpg");
+  background-color: black;
+}
+
+main {
+  /*background-image: url("../images/parchment.jpg");*/
   background-color: white;
+  margin: 0 10% 0 10%;
+  width: 80%;
+  padding: 2em;
 }
 
 div.checklist{
-  width: 80%;
-  max-width: 800px;
-  margin: 5% 10%;
+  width: 100%;
+  font-family: cursive;
+  padding: 2em;
 }
+
 .checklist .listHeader {
   display: flex;
   justify-content: space-between;
@@ -27,12 +40,21 @@ h1.listTitle {
 }
 div.add.button {
   display: inline-block;
-  background-color: green;
-  color: white;
+  font-size: 1.2em;
   padding: 0.5em;
   width: 5em;
   height: 2em;
   text-align: center;
   cursor: pointer;
+}
+
+header, footer {
+  text-align: center;
+  color: white;
+  background-image: url("../images/leather.jpg");
+  width: 80%;
+  margin: 0 10% 0 10%;
+  min-height: 8em;
+  padding: 3em;
 }
 
